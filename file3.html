@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Técnica</title>
+</head>
+<body>
+    <h1>Análise Técnica do EUR/USD</h1>
+    <form id="analyze-form">
+        <label for="ticker">Ticker:</label><br>
+        <input type="text" id="ticker" name="ticker"><br><br>
+        <label for="period">Período:</label><br>
+        <input type="text" id="period" name="period"><br><br>
+        <input type="submit" value="Analisar">
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('analyze-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const ticker = document.getElementById('ticker').value;
+            const period = document.getElementById('period').value;
+
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ticker, period })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h2>Resumo da Análise:</h2>
+                    <p>Volatilidade: ${data.Volatility}</p>
+                    <p>Indicadores:</p>
+                    <ul>
+                        <li>RSI: ${data.Indicators.RSI}</li>
+                        <li>EMA_20: ${data.Indicators.EMA_20}</li>
+                        <li>EMA_50: ${data.Indicators.EMA_50}</li>
+                        <li>Bollinger_Bands: ${data.Indicators.Bollinger_Bands}</li>
+                        <li>MACD: ${data.Indicators.MACD}</li>
+                        <li>MACD_Signal: ${data.Indicators.MACD_Signal}</li>
+                        <li>MACD_Hist: ${data.Indicators.MACD_Hist}</li>
+                    </ul>
+                    <p>Padrões de Vela:</p>
+                    <ul>
+                        ${data.Patterns.map(pattern => `<li>${pattern}</li>`).join('')}
+                    </ul>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
