@@ -1,0 +1,34 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "explorer.confirmDelete": false,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.automationProfile.linux": {
+    "path": "/bin/bash",
+    "args": [
+      "-c",
+      "bash ./install-dependencies.sh"
+    ]
+  },
+  "terminal.integrated.automationProfile.windows": {
+    "path": "cmd.exe",
+    "args": [
+      "/C",
+      "install-dependencies.sh"
+    ]
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt"
+}
